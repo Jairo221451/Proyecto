@@ -1,13 +1,13 @@
 const Emprendimiento = require('../Models/Emprendimiento');
-const upload = require('../Middlewares/upload');
+const cloudinary = require('../config/cloudinary');
 const db = require('../Database/connection');
-const fs = require('fs');
-const path = require('path');
 
 const crearEmprendimiento = async (req, res) => {
   try {
     const { id_usuario, nombre, descripcion, celular } = req.body;
-    const imagenUrl = req.file ? `/uploads/${req.file.filename}` : null;
+    
+    // La URL de Cloudinary viene en req.file.path
+    const imagenUrl = req.file ? req.file.path : null;
 
     const emprendimiento = await Emprendimiento.crear(
       id_usuario,
@@ -49,29 +49,41 @@ const listarEmprendimientos = async (req, res) => {
   }
 };
 
-// const listarEmprendimientos = async (req, res) => {
-//   try {
-//     const emprendimientos = await Emprendimiento.listar();
-//     res.json(emprendimientos);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
+// Función para extraer public_id de URL de Cloudinary
+const extractPublicId = (imageUrl) => {
+  if (!imageUrl || !imageUrl.includes('cloudinary.com')) return null;
+  
+  // Extraer el public_id de la URL de Cloudinary
+  const parts = imageUrl.split('/');
+  const uploadIndex = parts.indexOf('upload');
+  if (uploadIndex === -1) return null;
+  
+  // El public_id está después de la versión (si existe) o directamente después de upload
+  let publicIdPart = parts.slice(uploadIndex + 1).join('/');
+  
+  // Remover parámetros de transformación si existen
+  if (publicIdPart.includes('/')) {
+    const segments = publicIdPart.split('/');
+    // El último segmento es el nombre del archivo, los anteriores pueden ser transformaciones
+    publicIdPart = segments[segments.length - 1];
+  }
+  
+  // Remover la extensión
+  return publicIdPart.split('.')[0];
+};
 
-// Actualizar emprendimiento (nuevo)
+// Actualizar emprendimiento
 const actualizarEmprendimiento = async (req, res) => {
   try {
     const { id } = req.params;
     const { nombre, descripcion, celular } = req.body;
-    const imagenUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
-
+    
     // Validar propiedad
     const result = await db.query(
-      'SELECT id_usuario FROM emprendimientos WHERE id_emprendimiento = ?',
+      'SELECT id_usuario, imagen_url FROM emprendimientos WHERE id_emprendimiento = ?',
       [id]
     );
-    const emprendimiento = result[0][0]; // Tomar el primer elemento del array
-
+    const emprendimiento = result[0][0];
 
     if (!emprendimiento) {
       return res.status(404).json({ error: 'Emprendimiento no encontrado' });
@@ -79,16 +91,23 @@ const actualizarEmprendimiento = async (req, res) => {
     if (emprendimiento.id_usuario !== req.user.id && !req.user.esAdmin) {
       return res.status(403).json({ error: 'No tienes permiso para editar este emprendimiento' });
     }
-    
 
-    // Eliminar imagen anterior si se sube una nueva
-    if (imagenUrl) {
-      const [oldEmprendimiento] = await db.query(
-        'SELECT imagen_url FROM emprendimientos WHERE id_emprendimiento = ?',
-        [id]
-      );
-      if (oldEmprendimiento.imagen_url) {
-        fs.unlinkSync(path.join(__dirname, '../Public', oldEmprendimiento.imagen_url));
+    let imagenUrl = undefined;
+
+    // Si se sube una nueva imagen
+    if (req.file) {
+      imagenUrl = req.file.path; // URL de Cloudinary
+      
+      // Eliminar imagen anterior de Cloudinary si existe
+      if (emprendimiento.imagen_url) {
+        try {
+          const publicId = extractPublicId(emprendimiento.imagen_url);
+          if (publicId) {
+            await cloudinary.uploader.destroy(`emprendimientos/${publicId}`);
+          }
+        } catch (error) {
+          console.log('Error al eliminar imagen anterior de Cloudinary:', error.message);
+        }
       }
     }
 
@@ -109,7 +128,7 @@ const actualizarEmprendimiento = async (req, res) => {
   }
 };
 
-// Eliminar emprendimiento (nuevo)
+// Eliminar emprendimiento
 const eliminarEmprendimiento = async (req, res) => {
   try {
     const { id } = req.params;
@@ -128,16 +147,15 @@ const eliminarEmprendimiento = async (req, res) => {
       return res.status(403).json({ error: 'No tienes permiso para eliminar este emprendimiento' });
     }
 
-    // Eliminar imagen asociada
+    // Eliminar imagen de Cloudinary si existe
     if (emprendimiento.imagen_url) {
       try {
-        const imagePath = path.join(__dirname, '../Public', emprendimiento.imagen_url);
-        if (fs.existsSync(imagePath)) {
-          fs.unlinkSync(imagePath);
+        const publicId = extractPublicId(emprendimiento.imagen_url);
+        if (publicId) {
+          await cloudinary.uploader.destroy(`emprendimientos/${publicId}`);
         }
       } catch (error) {
-        console.log('Error al eliminar imagen:', error.message);
-        // Continuamos con la eliminación del emprendimiento aunque falle la imagen
+        console.log('Error al eliminar imagen de Cloudinary:', error.message);
       }
     }
 
@@ -147,6 +165,7 @@ const eliminarEmprendimiento = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const obtenerMasValorados = async (req, res) => {
   try {
     const emprendimientos = await Emprendimiento.obtenerMasValorados();
@@ -155,6 +174,7 @@ const obtenerMasValorados = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const obtenerUltimo = async (req, res) => {
   try {
     const emprendimiento = await Emprendimiento.obtenerUltimo();
@@ -163,6 +183,7 @@ const obtenerUltimo = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const obtenerPorUsuario = async (req, res) => {
   try {
     const { id_usuario } = req.params;
@@ -185,7 +206,6 @@ const obtenerPorId = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 module.exports = {
   crearEmprendimiento,

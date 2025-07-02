@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { verificarToken } = require('../Middlewares/auth');
-const upload = require('../Middlewares/upload');
+const upload = require('../Middlewares/cloudinaryUpload'); // Cambiado aquí
 const {
   crearEmprendimiento,
   listarEmprendimientos,
@@ -22,7 +22,6 @@ router.put('/:id', verificarToken, upload.single('imagen'), actualizarEmprendimi
 
 // DELETE /api/emprendimientos/:id (protegido, solo dueño o admin)
 router.delete('/:id', verificarToken, eliminarEmprendimiento);
-
 
 router.get('/:id', obtenerPorId);
 
