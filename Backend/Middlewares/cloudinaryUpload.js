@@ -6,7 +6,7 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'emprendimientos', // Carpeta en Cloudinary
+        folder: 'Collections', // Carpeta en Cloudinary
         allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
         transformation: [
             { width: 800, height: 600, crop: 'limit' }, // Redimensiona automáticamente
