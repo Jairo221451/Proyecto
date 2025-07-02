@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   define: {
-    'process.env.REACT_APP_BACKEND_URL': '"https://proyecto-production-5103.up.railway.app/api"'
+    'process.env.VITE_BACKEND_URL': JSON.stringify(process.env.VITE_BACKEND_URL)
   },
   server: {
     host: '0.0.0.0',
