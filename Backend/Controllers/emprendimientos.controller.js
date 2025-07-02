@@ -10,11 +10,14 @@ const crearEmprendimiento = async (req, res) => {
     console.log('Archivo recibido:', req.file);
     
     // La URL de Cloudinary viene en req.file.path
-    const imagenUrl = req.file ? req.file.path : null;
+    let imagenUrl = req.file ? req.file.path : null;
 
-    if (imagenUrl) {
-      console.log('URL de imagen generada:', imagenUrl);
+    // Asegurar que la URL use HTTPS
+    if (imagenUrl && imagenUrl.startsWith('http://')) {
+      imagenUrl = imagenUrl.replace('http://', 'https://');
     }
+
+    console.log('URL de imagen final:', imagenUrl);
 
     const emprendimiento = await Emprendimiento.crear(
       id_usuario,
@@ -37,7 +40,7 @@ const crearEmprendimiento = async (req, res) => {
   }
 };
 
-// Listar emprendimiento para tambien obtener el promedio de calificaciones en base a las estrellas
+// Listar emprendimientos con mejor manejo de URLs
 const listarEmprendimientos = async (req, res) => {
   try {
     const [emprendimientos] = await db.query(`
@@ -54,23 +57,46 @@ const listarEmprendimientos = async (req, res) => {
         e.id_emprendimiento
     `);
 
-    // Procesar URLs de imágenes para asegurar HTTPS
-    const emprendimientosConImagenes = emprendimientos.map(emp => ({
-      ...emp,
-      imagen_url: emp.imagen_url && emp.imagen_url.startsWith('http://') 
-        ? emp.imagen_url.replace('http://', 'https://') 
-        : emp.imagen_url
-    }));
+    // Procesar URLs de imágenes
+    const emprendimientosConImagenes = emprendimientos.map(emp => {
+      let imagenUrl = emp.imagen_url;
+      
+      // Asegurar HTTPS y formato correcto
+      if (imagenUrl) {
+        if (imagenUrl.startsWith('http://')) {
+          imagenUrl = imagenUrl.replace('http://', 'https://');
+        }
+        
+        // Si es una URL de Cloudinary, asegurar que esté bien formateada
+        if (imagenUrl.includes('cloudinary.com')) {
+          // Agregar transformaciones para optimización si no las tiene
+          if (!imagenUrl.includes('/w_') && !imagenUrl.includes('/h_')) {
+            const parts = imagenUrl.split('/upload/');
+            if (parts.length === 2) {
+              imagenUrl = `${parts[0]}/upload/w_800,h_600,c_fill,f_auto,q_auto/${parts[1]}`;
+            }
+          }
+        }
+      }
+      
+      return {
+        ...emp,
+        imagen_url: imagenUrl
+      };
+    });
 
-    console.log('Emprendimientos con imágenes:', emprendimientosConImagenes.map(e => ({
+    console.log('Emprendimientos procesados:', emprendimientosConImagenes.map(e => ({
       id: e.id_emprendimiento,
       nombre: e.nombre,
       imagen_url: e.imagen_url
     })));
 
-    // Headers para permitir imágenes externas
+    // Headers mejorados para CORS e imágenes
     res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.header('Cross-Origin-Embedder-Policy', 'unsafe-none');
     
     res.json(emprendimientosConImagenes);
   } catch (error) {
@@ -79,38 +105,44 @@ const listarEmprendimientos = async (req, res) => {
   }
 };
 
-// Función para extraer public_id de URL de Cloudinary
+// Función mejorada para extraer public_id
 const extractPublicId = (imageUrl) => {
   if (!imageUrl || !imageUrl.includes('cloudinary.com')) return null;
   
   try {
-    // Extraer el public_id de la URL de Cloudinary
     const parts = imageUrl.split('/');
     const uploadIndex = parts.indexOf('upload');
     if (uploadIndex === -1) return null;
     
-    // El public_id está después de la versión (si existe) o directamente después de upload
-    let publicIdPart = parts.slice(uploadIndex + 1).join('/');
+    // Encontrar el public_id después de las transformaciones
+    let publicIdIndex = uploadIndex + 1;
     
-    // Remover parámetros de transformación si existen
-    const transformationIndex = publicIdPart.indexOf('/');
-    if (transformationIndex !== -1) {
-      // Si hay transformaciones, tomar todo después de ellas
-      const segments = publicIdPart.split('/');
-      publicIdPart = segments[segments.length - 1];
+    // Saltar versiones y transformaciones
+    while (publicIdIndex < parts.length) {
+      const part = parts[publicIdIndex];
+      if (part.startsWith('v') && /^\d+$/.test(part.substring(1))) {
+        publicIdIndex++;
+        continue;
+      }
+      if (part.includes('_') || part.includes(',')) {
+        publicIdIndex++;
+        continue;
+      }
+      break;
     }
     
-    // Remover la extensión y versión si existe
-    const fileNameWithoutExtension = publicIdPart.split('.')[0];
+    // Tomar el resto como public_id y remover extensión
+    const publicIdParts = parts.slice(publicIdIndex);
+    const publicId = publicIdParts.join('/').split('.')[0];
     
-    return fileNameWithoutExtension;
+    return publicId;
   } catch (error) {
     console.error('Error extrayendo public_id:', error);
     return null;
   }
 };
 
-// Actualizar emprendimiento
+// Actualizar emprendimiento con mejor manejo de imágenes
 const actualizarEmprendimiento = async (req, res) => {
   try {
     const { id } = req.params;
@@ -134,7 +166,13 @@ const actualizarEmprendimiento = async (req, res) => {
 
     // Si se sube una nueva imagen
     if (req.file) {
-      imagenUrl = req.file.path; // URL de Cloudinary
+      imagenUrl = req.file.path;
+      
+      // Asegurar HTTPS
+      if (imagenUrl && imagenUrl.startsWith('http://')) {
+        imagenUrl = imagenUrl.replace('http://', 'https://');
+      }
+      
       console.log('Nueva imagen subida:', imagenUrl);
       
       // Eliminar imagen anterior de Cloudinary si existe
@@ -143,7 +181,7 @@ const actualizarEmprendimiento = async (req, res) => {
           const publicId = extractPublicId(emprendimiento.imagen_url);
           console.log('Eliminando imagen anterior, public_id:', publicId);
           if (publicId) {
-            const result = await cloudinary.uploader.destroy(`emprendimientos/${publicId}`);
+            const result = await cloudinary.uploader.destroy(publicId);
             console.log('Resultado eliminación:', result);
           }
         } catch (error) {
@@ -170,12 +208,11 @@ const actualizarEmprendimiento = async (req, res) => {
   }
 };
 
-// Eliminar emprendimiento
+// Resto de funciones con el mismo patrón de manejo de URLs
 const eliminarEmprendimiento = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validar propiedad
     const [rows] = await db.query(
       'SELECT id_usuario, imagen_url FROM emprendimientos WHERE id_emprendimiento = ?',
       [id]
@@ -195,7 +232,7 @@ const eliminarEmprendimiento = async (req, res) => {
         const publicId = extractPublicId(emprendimiento.imagen_url);
         console.log('Eliminando imagen, public_id:', publicId);
         if (publicId) {
-          const result = await cloudinary.uploader.destroy(`emprendimientos/${publicId}`);
+          const result = await cloudinary.uploader.destroy(publicId);
           console.log('Resultado eliminación:', result);
         }
       } catch (error) {
@@ -215,7 +252,6 @@ const obtenerMasValorados = async (req, res) => {
   try {
     const emprendimientos = await Emprendimiento.obtenerMasValorados();
     
-    // Asegurar HTTPS en URLs de imágenes
     const emprendimientosConImagenes = emprendimientos.map(emp => ({
       ...emp,
       imagen_url: emp.imagen_url && emp.imagen_url.startsWith('http://') 
@@ -225,6 +261,7 @@ const obtenerMasValorados = async (req, res) => {
 
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.header('Cross-Origin-Embedder-Policy', 'unsafe-none');
     
     res.json(emprendimientosConImagenes);
   } catch (error) {
@@ -237,13 +274,13 @@ const obtenerUltimo = async (req, res) => {
   try {
     const emprendimiento = await Emprendimiento.obtenerUltimo();
     
-    // Asegurar HTTPS en URL de imagen
     if (emprendimiento && emprendimiento.imagen_url && emprendimiento.imagen_url.startsWith('http://')) {
       emprendimiento.imagen_url = emprendimiento.imagen_url.replace('http://', 'https://');
     }
 
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.header('Cross-Origin-Embedder-Policy', 'unsafe-none');
     
     res.json(emprendimiento);
   } catch (error) {
@@ -257,7 +294,6 @@ const obtenerPorUsuario = async (req, res) => {
     const { id_usuario } = req.params;
     const emprendimientos = await Emprendimiento.obtenerPorUsuario(id_usuario);
     
-    // Asegurar HTTPS en URLs de imágenes
     const emprendimientosConImagenes = emprendimientos.map(emp => ({
       ...emp,
       imagen_url: emp.imagen_url && emp.imagen_url.startsWith('http://') 
@@ -267,6 +303,7 @@ const obtenerPorUsuario = async (req, res) => {
 
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.header('Cross-Origin-Embedder-Policy', 'unsafe-none');
     
     res.json(emprendimientosConImagenes);
   } catch (error) {
@@ -284,7 +321,6 @@ const obtenerPorId = async (req, res) => {
       return res.status(404).json({ error: 'Emprendimiento no encontrado' });
     }
 
-    // Asegurar HTTPS en URL de imagen
     if (emprendimiento.imagen_url && emprendimiento.imagen_url.startsWith('http://')) {
       emprendimiento.imagen_url = emprendimiento.imagen_url.replace('http://', 'https://');
     }
@@ -297,6 +333,7 @@ const obtenerPorId = async (req, res) => {
 
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.header('Cross-Origin-Embedder-Policy', 'unsafe-none');
     
     res.json(emprendimiento);
   } catch (error) {
