@@ -1,0 +1,486 @@
+/* Sidebar.css - Con soporte completo para modo oscuro corregido */
+
+/* Variables CSS globales para tema claro */
+:root {
+  --sidebar-bg: #f8f9fa;
+  --sidebar-text: #333333;
+  --sidebar-text-secondary: #6c757d;
+  --sidebar-border: #dee2e6;
+  --sidebar-card-bg: #ffffff;
+  --sidebar-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  --sidebar-card-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
+  --sidebar-scrollbar-track: rgba(0, 0, 0, 0.1);
+  --sidebar-scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --sidebar-scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
+  --sidebar-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --sidebar-gradient-secondary: linear-gradient(45deg, #667eea, #764ba2);
+  --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --sidebar-transition: all 0.3s ease;
+  --sidebar-user-avatar-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Variables específicas para modo oscuro usando la clase .dark */
+.sidebar.dark {
+  --sidebar-bg: #1a1a1a;
+  --sidebar-text: #ffffff;
+  --sidebar-text-secondary: #b0b0b0;
+  --sidebar-border: #333333;
+  --sidebar-card-bg: #2d2d2d;
+  --sidebar-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  --sidebar-card-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.5);
+  --sidebar-scrollbar-track: rgba(255, 255, 255, 0.1);
+  --sidebar-scrollbar-thumb: rgba(255, 255, 255, 0.2);
+  --sidebar-scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+  --sidebar-gradient-primary: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  --sidebar-gradient-secondary: linear-gradient(45deg, #4299e1, #3182ce);
+  --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --sidebar-user-avatar-bg: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+}
+
+/* Sidebar principal */
+.sidebar {
+  padding: 2rem 1.5rem;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--sidebar-bg) !important;
+  transition: var(--sidebar-transition);
+  border-right: 1px solid var(--sidebar-border);
+}
+
+/* Scrollbar styling */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: var(--sidebar-scrollbar-track);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--sidebar-scrollbar-thumb);
+  border-radius: 3px;
+  transition: var(--sidebar-transition);
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--sidebar-scrollbar-thumb-hover);
+}
+
+/* Brand section */
+.sidebar-brand {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--sidebar-border);
+  transition: var(--sidebar-transition);
+}
+
+.sidebar-brand h3 {
+  color: var(--sidebar-text) !important;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin: 0;
+  text-shadow: var(--sidebar-brand-shadow);
+  transition: var(--sidebar-transition);
+}
+
+.sidebar-brand small {
+  color: var(--sidebar-text-secondary) !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--sidebar-transition);
+}
+
+/* Cards base - IMPORTANTE: Forzar estilos con !important para sobrescribir Bootstrap */
+.sidebar .welcome-card,
+.sidebar .login-card,
+.sidebar .info-card,
+.sidebar .features-card {
+  border: none !important;
+  border-radius: 20px !important;
+  box-shadow: var(--sidebar-card-shadow) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
+  margin-bottom: 1.5rem !important;
+  overflow: hidden !important;
+  background: var(--sidebar-card-bg) !important;
+}
+
+.sidebar .welcome-card:hover,
+.sidebar .login-card:hover,
+.sidebar .info-card:hover,
+.sidebar .features-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: var(--sidebar-card-shadow-hover) !important;
+}
+
+/* Welcome card - con gradiente especial */
+.sidebar .welcome-card {
+  background: var(--sidebar-gradient-primary) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.sidebar .welcome-card .card-body {
+  padding: 2.5rem 2rem !important;
+  text-align: center !important;
+}
+
+.sidebar .welcome-card h5 {
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  color: white !important;
+}
+
+.sidebar .welcome-card p {
+  font-size: 1.1rem !important;
+  margin-bottom: 2rem !important;
+  line-height: 1.6 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Avatar de usuario grande */
+.sidebar .user-avatar-large {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  background: var(--sidebar-user-avatar-bg) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  margin: 0 auto !important;
+  border: 3px solid rgba(255, 255, 255, 0.3) !important;
+  transition: var(--sidebar-transition) !important;
+}
+
+.sidebar .user-info {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* Login card - adapta al tema */
+.sidebar .login-card {
+  background: var(--sidebar-card-bg) !important;
+  border: 1px solid var(--sidebar-border) !important;
+}
+
+.sidebar .login-card .card-body {
+  padding: 2.5rem 2rem !important;
+  text-align: center !important;
+}
+
+.sidebar .login-card h5 {
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  color: var(--sidebar-text) !important;
+}
+
+.sidebar .login-card p {
+  font-size: 1.1rem !important;
+  margin-bottom: 2rem !important;
+  line-height: 1.6 !important;
+  color: var(--sidebar-text-secondary) !important;
+}
+
+/* Info card */
+.sidebar .info-card {
+  background: var(--sidebar-card-bg) !important;
+  border: 1px solid var(--sidebar-border) !important;
+}
+
+.sidebar .info-card .card-body {
+  padding: 2rem !important;
+}
+
+.sidebar .info-card h6 {
+  color: var(--sidebar-text) !important;
+  font-weight: 700 !important;
+  font-size: 1.2rem !important;
+  margin-bottom: 1.2rem !important;
+  position: relative !important;
+}
+
+.sidebar .info-card h6::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -8px !important;
+  left: 0 !important;
+  width: 40px !important;
+  height: 4px !important;
+  background: var(--sidebar-gradient-secondary) !important;
+  border-radius: 2px !important;
+}
+
+.sidebar .info-card .small,
+.sidebar .info-card p {
+  color: var(--sidebar-text-secondary) !important;
+  line-height: 1.7 !important;
+  font-size: 1rem !important;
+}
+
+/* Features card */
+.sidebar .features-card {
+  background: var(--sidebar-card-bg) !important;
+  border: 1px solid var(--sidebar-border) !important;
+}
+
+.sidebar .features-card .card-body {
+  padding: 1.5rem !important;
+}
+
+.sidebar .features-title {
+  color: var(--sidebar-text) !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.sidebar .feature-item {
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 0.8rem !important;
+  font-size: 0.95rem !important;
+}
+
+.sidebar .feature-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+.sidebar .feature-icon {
+  width: 8px !important;
+  height: 8px !important;
+  background: var(--sidebar-gradient-secondary) !important;
+  border-radius: 50% !important;
+  margin-right: 0.8rem !important;
+  flex-shrink: 0 !important;
+}
+
+.sidebar .feature-text {
+  color: var(--sidebar-text) !important;
+  line-height: 1.4 !important;
+}
+
+/* Stats grid para la actividad del usuario */
+.sidebar .stats-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 1rem !important;
+  margin-top: 1rem !important;
+}
+
+.sidebar .stat-item {
+  text-align: center !important;
+  padding: 1rem !important;
+  background: rgba(102, 126, 234, 0.1) !important;
+  border-radius: 12px !important;
+  transition: var(--sidebar-transition) !important;
+}
+
+.sidebar.dark .stat-item {
+  background: rgba(66, 153, 225, 0.1) !important;
+}
+
+.sidebar .stat-number {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--sidebar-text) !important;
+}
+
+.sidebar .stat-label {
+  font-size: 0.8rem !important;
+  color: var(--sidebar-text-secondary) !important;
+  margin-top: 0.25rem !important;
+}
+
+/* Botones */
+.sidebar .btn-modern,
+.sidebar .btn-login {
+  border-radius: 50px !important;
+  padding: 1rem 2rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  transition: var(--sidebar-transition) !important;
+  font-size: 0.9rem !important;
+  width: 100% !important;
+  border: none !important;
+}
+
+/* Botón moderno para welcome card */
+.sidebar .btn-modern.btn-outline-primary {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 2px solid rgba(255, 255, 255, 0.4) !important;
+  color: white !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.sidebar .btn-modern.btn-outline-primary:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(-3px) !important;
+  color: white !important;
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Botones de login - adaptativos al tema */
+.sidebar .btn-login.btn-primary {
+  background: var(--sidebar-gradient-secondary) !important;
+  border: none !important;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+}
+
+.sidebar .btn-login.btn-primary:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5) !important;
+  filter: brightness(1.1) !important;
+}
+
+.sidebar .btn-login.btn-outline-primary {
+  border: 2px solid transparent !important;
+  color: var(--sidebar-text) !important;
+  background: transparent !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.sidebar .btn-login.btn-outline-primary::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  padding: 2px !important;
+  background: var(--sidebar-gradient-secondary) !important;
+  border-radius: inherit !important;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
+  mask-composite: exclude !important;
+  -webkit-mask-composite: xor !important;
+}
+
+.sidebar .btn-login.btn-outline-primary:hover {
+  background: var(--sidebar-gradient-secondary) !important;
+  transform: translateY(-3px) !important;
+  color: white !important;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Animaciones de entrada */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidebar .welcome-card,
+.sidebar .login-card,
+.sidebar .info-card,
+.sidebar .features-card {
+  animation: slideInUp 0.6s ease-out !important;
+}
+
+.sidebar .welcome-card { animation-delay: 0s !important; }
+.sidebar .login-card { animation-delay: 0.1s !important; }
+.sidebar .info-card { animation-delay: 0.2s !important; }
+.sidebar .features-card { animation-delay: 0.3s !important; }
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  .sidebar .welcome-card .card-body,
+  .sidebar .login-card .card-body {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  .sidebar .info-card .card-body,
+  .sidebar .features-card .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .sidebar .sidebar-brand h3 {
+    font-size: 1.6rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .sidebar {
+    padding: 1rem 0.75rem !important;
+  }
+  
+  .sidebar .welcome-card .card-body,
+  .sidebar .login-card .card-body {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  .sidebar .sidebar-brand h3 {
+    font-size: 1.4rem !important;
+  }
+  
+  .sidebar .btn-modern,
+  .sidebar .btn-login {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Efectos especiales para modo oscuro */
+.sidebar.dark .welcome-card {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
+              0 0 20px rgba(74, 85, 104, 0.3) !important;
+}
+
+.sidebar.dark .welcome-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+              0 0 25px rgba(74, 85, 104, 0.4) !important;
+}
+
+.sidebar.dark .btn-login.btn-primary {
+  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4) !important;
+}
+
+.sidebar.dark .btn-login.btn-primary:hover {
+  box-shadow: 0 8px 25px rgba(66, 153, 225, 0.5) !important;
+}
+
+.sidebar.dark .user-avatar-large {
+  background: var(--sidebar-user-avatar-bg) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Mejoras de accesibilidad */
+.sidebar .btn-modern:focus,
+.sidebar .btn-login:focus {
+  outline: 2px solid var(--sidebar-gradient-secondary) !important;
+  outline-offset: 2px !important;
+}
+
+/* Transiciones suaves para todos los elementos interactivos */
+.sidebar * {
+  transition: var(--sidebar-transition) !important;
+}
+
+/* Estados de carga */
+.sidebar.loading {
+  opacity: 0.7 !important;
+  pointer-events: none !important;
+}
+
+.sidebar.loading * {
+  animation: pulse 1.5s ease-in-out infinite !important;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}

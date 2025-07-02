@@ -1,0 +1,382 @@
+/* Footer.css - Con soporte para modo oscuro */
+
+/* Variables CSS para tema claro */
+:root {
+  --footer-bg: #ffffff;
+  --footer-bg-secondary: #f8f9fa;
+  --footer-text: #6c757d;
+  --footer-text-dark: #212529;
+  --footer-accent: #6366f1;
+  --footer-hover: #4f46e5;
+  --footer-border: #e5e7eb;
+  --footer-input-bg: #f8f9fa;
+  --footer-input-text: #212529;
+  --footer-input-placeholder: #9ca3af;
+  --transition: all 0.3s ease;
+  --shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Variables CSS para tema oscuro */
+.modern-footer.dark {
+  --footer-bg: #1a1a1a ;
+  --footer-bg-secondary: #2d333d;
+  --footer-text: #a0aec0;
+  --footer-text-dark: #e2e8f0;
+  --footer-accent: #667eea;
+  --footer-hover: #5a67d8;
+  --footer-border: #4a5568;
+  --footer-input-bg: #2d3748;
+  --footer-input-text: #e2e8f0;
+  --footer-input-placeholder: #718096;
+  --shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.25);
+}
+
+/* Footer principal */
+.modern-footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  margin-top: auto;
+  box-shadow: var(--shadow);
+  border-top: 1px solid var(--footer-border);
+  transition: var(--transition);
+}
+
+.footer-main {
+  padding: 4rem 0 3rem;
+  background-color: var(--footer-bg);
+  position: relative;
+}
+
+/* Sección de marca */
+.footer-brand {
+  margin-bottom: 2rem;
+}
+
+.brand-title {
+  color: var(--footer-accent);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.025em;
+  transition: var(--transition);
+}
+
+.brand-description {
+  color: var(--footer-text);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  max-width: 280px;
+}
+
+/* Redes sociales */
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--footer-bg-secondary);
+  color: var(--footer-text);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: var(--transition);
+  font-size: 1.2rem;
+  border: 1px solid var(--footer-border);
+}
+
+.social-link:hover {
+  background-color: var(--footer-accent);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
+  border-color: var(--footer-accent);
+}
+
+.modern-footer.dark .social-link:hover {
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+}
+
+/* Secciones del footer */
+.footer-section {
+  margin-bottom: 2rem;
+}
+
+.footer-title {
+  color: var(--footer-text-dark);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Enlaces del footer */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  color: var(--footer-text);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: var(--transition);
+  display: inline-block;
+  position: relative;
+}
+
+.footer-links a:hover {
+  color: var(--footer-accent);
+  transform: translateX(4px);
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--footer-accent);
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+/* Newsletter */
+.newsletter-text {
+  color: var(--footer-text);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.newsletter-form {
+  margin-top: 1rem;
+}
+
+.newsletter-input {
+  background-color: var(--footer-input-bg) !important;
+  border: 1px solid var(--footer-border) !important;
+  color: var(--footer-input-text) !important;
+  border-radius: 12px 0 0 12px;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.newsletter-input:focus {
+  background-color: var(--footer-input-bg) !important;
+  border-color: var(--footer-accent) !important;
+  color: var(--footer-input-text) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+.newsletter-input::placeholder {
+  color: var(--footer-input-placeholder) !important;
+}
+
+.newsletter-btn {
+  background-color: var(--footer-accent) !important;
+  border: 1px solid var(--footer-accent) !important;
+  border-radius: 0 12px 12px 0;
+  padding: 0.875rem 1.25rem;
+  transition: var(--transition);
+  box-shadow: none;
+}
+
+.newsletter-btn:hover {
+  background-color: var(--footer-hover) !important;
+  border-color: var(--footer-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.newsletter-btn:focus {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+}
+
+.modern-footer.dark .newsletter-btn:hover {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Footer inferior */
+.footer-bottom {
+  background-color: var(--footer-bg-secondary);
+  padding: 2rem 0;
+  border-top: 1px solid var(--footer-border);
+}
+
+.copyright-text {
+  color: var(--footer-text);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.footer-bottom-links {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-bottom-links a {
+  color: var(--footer-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--footer-accent);
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.modern-footer.dark .footer-bottom-links a:hover {
+  background-color: rgba(102, 126, 234, 0.15);
+}
+
+.separator {
+  color: var(--footer-text);
+  margin: 0 0.5rem;
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-main {
+    padding: 3rem 0 2rem;
+  }
+  
+  .footer-section {
+    margin-bottom: 2rem;
+  }
+  
+  .social-links {
+    justify-content: flex-start;
+    margin-top: 1rem;
+  }
+  
+  .footer-bottom-links {
+    text-align: center;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .copyright-text {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .newsletter-form .input-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .newsletter-input {
+    border-radius: 12px;
+  }
+  
+  .newsletter-btn {
+    border-radius: 12px;
+    width: 100%;
+  }
+
+  .brand-description {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .brand-title {
+    font-size: 1.75rem;
+  }
+  
+  .footer-main {
+    padding: 2.5rem 0 1.5rem;
+  }
+  
+  .social-links {
+    gap: 0.75rem;
+  }
+  
+  .social-link {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Animaciones mejoradas */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer-section {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.footer-section:nth-child(1) { animation-delay: 0s; }
+.footer-section:nth-child(2) { animation-delay: 0.1s; }
+.footer-section:nth-child(3) { animation-delay: 0.2s; }
+.footer-section:nth-child(4) { animation-delay: 0.3s; }
+.footer-section:nth-child(5) { animation-delay: 0.4s; }
+
+/* Efectos de hover mejorados */
+.footer-brand:hover .brand-title {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+.social-link:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* Mejoras visuales para modo oscuro */
+.modern-footer.dark {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+}
+
+.modern-footer.dark .footer-bottom {
+  background: linear-gradient(135deg, #181818  0%, #181818  100%);
+}
+
+/* Efectos de resplandor para modo oscuro */
+.modern-footer.dark .brand-title {
+  text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.modern-footer.dark .social-link:hover {
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4), 
+              0 0 20px rgba(102, 126, 234, 0.2);
+}
+
+.modern-footer.dark .newsletter-btn:hover {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4),
+              0 0 15px rgba(102, 126, 234, 0.2);
+}
