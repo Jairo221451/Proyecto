@@ -107,9 +107,13 @@ const MisEmprendimientos = () => {
                 {emp.imagen_url && (
                   <Card.Img 
                     variant="top" 
-                    src={`http://localhost:3001${emp.imagen_url}`} 
+                    src={emp.imagen_url} 
                     alt={emp.nombre}
                     className="card-img-custom"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://via.placeholder.com/300x200?text=Imagen+no+disponible';
+                    }}
                   />
                 )}
                 {/* Cuerpo de la tarjeta con nombre y descripción */}
