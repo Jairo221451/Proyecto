@@ -32,8 +32,9 @@ const EditarEmprendimiento = () => {
         setFacebookUrl(emp.facebook_url || '');
         setInstagramUrl(emp.instagram_url || '');
         setOtraRedSocial(emp.otra_red_social || '');
+        // CORREGIDO: Ahora usa directamente la URL de Cloudinary
         if (emp.imagen_url) {
-          setImagenPreview(`http://localhost:3001${emp.imagen_url}`);
+          setImagenPreview(emp.imagen_url);
         }
       } catch (err) {
         setError('Error al cargar el emprendimiento');
@@ -175,6 +176,10 @@ const EditarEmprendimiento = () => {
                     src={imagenPreview} 
                     alt="Preview" 
                     style={{ maxWidth: '100%', maxHeight: '200px' }}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://via.placeholder.com/300x200?text=Imagen+no+disponible';
+                    }}
                   />
                 </div>
               )}

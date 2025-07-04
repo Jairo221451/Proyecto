@@ -144,12 +144,16 @@ const handleReportar = async () => {
           {/* Columna de la imagen */}
           <Col md={5}>
             <Card.Img
-              src={`http://localhost:3001${emprendimiento.imagen_url}`}
+              src={emprendimiento.imagen_url}
               className="img-fluid rounded-start"
               style={{ 
                 maxHeight: '400px',
                 objectFit: 'cover',
                 width: '100%'
+              }}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://via.placeholder.com/400x300?text=Imagen+no+disponible';
               }}
             />
           </Col>
