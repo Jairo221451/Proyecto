@@ -1,20 +1,28 @@
+/* ============================================
+   BARRA DE NAVEGACIÓN MODERNA - ESTILOS BASE
+   ============================================ */
 .modern-navbar {
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px); /* Aplica desenfoque de fondo */
   position: relative !important;
-  z-index: 1020;
-  transition: all 0.3s ease;
+  z-index: 1020; /* Se asegura de estar encima de otros elementos */
+  transition: all 0.3s ease; /* Transiciones suaves */
 }
 
+/* Estilo claro para la navbar */
 .modern-navbar.light {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95) !important; /* Fondo blanco semitransparente */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Línea inferior tenue */
 }
 
+/* Estilo oscuro para la navbar */
 .modern-navbar.dark {
-  background: rgba(30, 30, 30, 0.95) !important;
-  border-bottom: 1px solid #333;
+  background: rgba(30, 30, 30, 0.95) !important; /* Fondo oscuro semitransparente */
+  border-bottom: 1px solid #333; /* Línea inferior más marcada */
 }
 
+/* ============================================
+   LOGO Y MARCA
+   ============================================ */
 .modern-brand {
   font-weight: 700;
   font-size: 1.5rem;
@@ -23,20 +31,26 @@
   transition: color 0.3s ease;
 }
 
+/* Marca en modo oscuro */
 .modern-navbar.dark .modern-brand {
   color: #ffffff !important;
 }
 
+/* Logo de la navbar */
 .navbar-logo {
   height: 100px;
   width: auto;
   transition: filter 0.3s ease;
 }
 
+/* Inversión de logo en modo oscuro */
 .modern-navbar.dark .navbar-logo {
   filter: brightness(0) invert(1);
 }
 
+/* ============================================
+   ENLACES DE NAVEGACIÓN
+   ============================================ */
 .modern-nav-link {
   color: #495057 !important;
   font-weight: 300;
@@ -46,20 +60,26 @@
   margin: 0 0.2rem;
 }
 
+/* Enlaces en modo oscuro */
 .modern-navbar.dark .modern-nav-link {
   color: #e9ecef !important;
 }
 
+/* Hover para enlaces */
 .modern-nav-link:hover {
   color: #007bff !important;
   background: rgba(0, 123, 255, 0.1);
 }
 
+/* ============================================
+   BOTÓN DE TOGGLE RESPONSIVE
+   ============================================ */
 .modern-toggler {
   border: none !important;
   padding: 0.25rem 0.5rem;
 }
 
+/* Líneas del botón hamburguesa */
 .modern-toggler span {
   display: block;
   width: 25px;
@@ -70,10 +90,14 @@
   border-radius: 2px;
 }
 
+/* Líneas en modo oscuro */
 .modern-navbar.dark .modern-toggler span {
   background: #e9ecef;
 }
 
+/* ============================================
+   AVATAR DE USUARIO
+   ============================================ */
 .user-avatar {
   width: 32px;
   height: 32px;
@@ -85,8 +109,13 @@
   color: white;
   font-weight: 600;
   font-size: 14px;
+  text-transform: uppercase; /* Letras en mayúscula */
 }
 
+/* ============================================
+   MENÚ DESPLEGABLE
+   ============================================ */
+/* Toggle del menú desplegable */
 .modern-dropdown-toggle {
   display: flex !important;
   align-items: center;
@@ -97,15 +126,18 @@
   color: #495057 !important;
 }
 
+/* Toggle en modo oscuro */
 .modern-navbar.dark .modern-dropdown-toggle {
   color: #e9ecef !important;
 }
 
+/* Hover del toggle */
 .modern-dropdown-toggle:hover {
   background: rgba(0, 123, 255, 0.1);
   color: #007bff !important;
 }
 
+/* Contenedor del menú */
 .modern-dropdown-menu {
   border: none !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
@@ -115,41 +147,51 @@
   background-color: #ffffff !important;
 }
 
+/* Menú en modo oscuro */
 .modern-navbar.dark .modern-dropdown-menu {
   background-color: #2d2d2d !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
 }
 
+/* Ítems individuales del menú */
 .modern-dropdown-item {
   padding: 0.7rem 1.5rem !important;
   color: #495057 !important;
   transition: all 0.3s ease;
 }
 
+/* Ítems en modo oscuro */
 .modern-navbar.dark .modern-dropdown-item {
   color: #e9ecef !important;
 }
 
+/* Hover en ítems del menú */
 .modern-dropdown-item:hover {
   background: rgba(0, 123, 255, 0.1) !important;
   color: #007bff !important;
 }
 
+/* Ítem de peligro (ej. cerrar sesión) */
 .modern-dropdown-item.text-danger {
   color: #dc3545 !important;
 }
 
+/* Hover de ítem de peligro */
 .modern-dropdown-item.text-danger:hover {
   background: rgba(220, 53, 69, 0.1) !important;
   color: #dc3545 !important;
 }
 
+/* ============================================
+   BOTONES DE AUTENTICACIÓN
+   ============================================ */
 .auth-buttons {
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
 
+/* Botón de contorno */
 .modern-btn-outline {
   border: 2px solid #007bff !important;
   color: #007bff !important;
@@ -160,27 +202,33 @@
   transition: all 0.3s ease;
 }
 
+/* Hover de botón contorno */
 .modern-btn-outline:hover {
   background: #007bff !important;
   color: white !important;
   transform: translateY(-2px);
 }
 
+/* Botón primario con gradiente */
 .modern-btn-primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   border: none !important;
   border-radius: 25px !important;
-  padding: 0.5rem 1.5rem !important;
+  padding: 0.5rem 1.5rem !important;  
   font-weight: 600;
   transition: all 0.3s ease;
 }
 
+/* Hover de botón primario */
 .modern-btn-primary:hover {
   background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
 
+/* ============================================
+   BOTÓN DE MODO OSCURO
+   ============================================ */
 .dark-mode-btn {
   border-radius: 25px !important;
   padding: 0.4rem 1rem !important;
@@ -195,12 +243,14 @@
   color: #495057 !important;
 }
 
+/* Estilo en modo oscuro */
 .modern-navbar.dark .dark-mode-btn {
   background: #333 !important;
   border: 1px solid #555 !important;
   color: #ffffff !important;
 }
 
+/* Hover del botón modo oscuro */
 .dark-mode-btn:hover {
   background: #e9ecef !important;
   border-color: #adb5bd !important;
@@ -214,34 +264,14 @@
   color: #ffffff !important;
 }
 
+/* Icono del botón modo oscuro */
 .dark-mode-icon {
   font-size: 16px;
 }
 
-.admin-badge {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
-  color: white;
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 10px;
-  margin-left: 0.5rem;
-  font-weight: bold;
-}
-
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: uppercase; /* Asegura mayúsculas */
-}
-
+/* ============================================
+   INSIGNIA DE ADMIN
+   ============================================ */
 .admin-badge {
   background: #ff6b6b;
   color: white;

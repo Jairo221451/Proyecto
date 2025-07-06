@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Dropdown, Button } from 'react-bootstrap';
+import { 
+  FiHome, FiBriefcase, FiInfo, FiUser, FiSettings, 
+  FiLogOut, FiPlusCircle, FiShield, FiSun, FiMoon 
+} from 'react-icons/fi';
 import logo from '../assets/Localink.png';
 import './Navbar.css';
 
@@ -15,27 +19,27 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
     navigate('/login');
   };
 
-  // Función mejorada para obtener la inicial del nombre
   const getInitial = () => {
-    if (!user?.nombre) return 'U'; // 'U' de Usuario por defecto
-    
-    // Limpiar espacios y obtener primera letra
+    if (!user?.nombre) return 'U';
     const cleanName = user.nombre.trim();
-    if (cleanName.length === 0) return 'U';
-    
-    return cleanName.charAt(0).toUpperCase();
+    return cleanName.length === 0 ? 'U' : cleanName.charAt(0).toUpperCase();
   };
 
-  // Función para verificar si es admin de forma robusta
   const esAdmin = () => {
     return Boolean(user?.esAdmin === true || user?.esAdmin === 1 || user?.esAdmin === "1");
   };
 
   return (
-    <Navbar expand="lg" className={`modern-navbar shadow-sm ${darkMode ? 'dark' : 'light'}`}>
+    <Navbar expand="lg" className={`modern-navbar ${darkMode ? 'dark' : 'light'}`}>
       <Container fluid>
         <Navbar.Brand as={Link} to="/" className="modern-brand">
-          <img src={logo} alt="LocaLink" className="navbar-logo" />
+          <div className="logo-container"> {/* Contenedor adicional para mejor control */}
+            <img 
+              src={logo} 
+              alt="LocaLink" 
+              className="navbar-logo"
+            />
+          </div>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbar-nav" className="modern-toggler">
@@ -47,30 +51,33 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/" className="modern-nav-link">
-              Inicio
+              <FiHome className="me-1" /> Inicio
             </Nav.Link>
             <Nav.Link as={Link} to="/emprendimientos" className="modern-nav-link">
-              Emprendimientos
+              <FiBriefcase className="me-1" /> Emprendimientos
             </Nav.Link>
             <Nav.Link as={Link} to="/acerca-de" className="modern-nav-link">
-              Acerca de
+              <FiInfo className="me-1" /> Acerca de
             </Nav.Link>
           </Nav>
 
           <Nav className="ms-auto align-items-center">
             <Button onClick={toggleDarkMode} className="dark-mode-btn me-3" size="sm">
-              <span className="dark-mode-icon">{darkMode ? '☀️' : '🌙'}</span>
-              {darkMode ? 'Claro' : 'Oscuro'}
+              {darkMode ? (
+                <>
+                  <FiSun className="me-1" /> Claro
+                </>
+              ) : (
+                <>
+                  <FiMoon className="me-1" /> Oscuro
+                </>
+              )}
             </Button>
 
             {isLoggedIn ? (
               <>
-                <Nav.Link
-                  as={Link}
-                  to="/mis-emprendimientos"
-                  className="modern-nav-link me-2"
-                >
-                  Mis Emprendimientos
+                <Nav.Link as={Link} to="/mis-emprendimientos" className="modern-nav-link me-2">
+                  <FiBriefcase className="me-1" /> Mis Emprendimientos
                 </Nav.Link>
 
                 <Dropdown as={Nav.Item} align="end">
@@ -86,28 +93,24 @@ const CustomNavbar = ({ darkMode, toggleDarkMode }) => {
 
                   <Dropdown.Menu className="modern-dropdown-menu">
                     <Dropdown.Item as={Link} to="/crear-emprendimiento" className="modern-dropdown-item">
-                      <i className="bi bi-plus-circle me-2"></i> Crear Emprendimiento
+                      <FiPlusCircle className="me-2" /> Crear Emprendimiento
                     </Dropdown.Item>
 
                     {esAdmin() && (
                       <>
                         <Dropdown.Divider />
-                        <Dropdown.Item 
-                          as={Link} 
-                          to="/admin/reportes" 
-                          className="modern-dropdown-item"
-                        >
-                          <i className="bi bi-shield-lock me-2"></i> Panel de Admin
+                        <Dropdown.Item as={Link} to="/admin/reportes" className="modern-dropdown-item">
+                          <FiShield className="me-2" /> Panel de Admin
                         </Dropdown.Item>
                       </>
                     )}
 
                     <Dropdown.Item as={Link} to="/configuracion" className="modern-dropdown-item">
-                      <i className="bi bi-gear me-2"></i> Configuración
+                      <FiSettings className="me-2" /> Configuración
                     </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item onClick={handleLogout} className="modern-dropdown-item text-danger">
-                      <i className="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+                      <FiLogOut className="me-2" /> Cerrar Sesión
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

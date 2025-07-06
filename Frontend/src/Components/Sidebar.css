@@ -1,25 +1,32 @@
-/* Sidebar.css - Con soporte completo para modo oscuro corregido */
+/* ============================================
+   SIDEBAR.CSS - VERSIÓN COMBINADA MEJORADA
+   Diseño moderno con soporte completo para modo oscuro
+   ============================================ */
 
-/* Variables CSS globales para tema claro */
+/* ============================================
+   VARIABLES GLOBALES PARA TEMA CLARO
+   ============================================ */
 :root {
-  --sidebar-bg: #f8f9fa;
-  --sidebar-text: #333333;
-  --sidebar-text-secondary: #6c757d;
-  --sidebar-border: #dee2e6;
-  --sidebar-card-bg: #ffffff;
-  --sidebar-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  --sidebar-card-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
-  --sidebar-scrollbar-track: rgba(0, 0, 0, 0.1);
-  --sidebar-scrollbar-thumb: rgba(0, 0, 0, 0.2);
-  --sidebar-scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
-  --sidebar-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --sidebar-gradient-secondary: linear-gradient(45deg, #667eea, #764ba2);
-  --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --sidebar-transition: all 0.3s ease;
-  --sidebar-user-avatar-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --sidebar-bg: #f8f9fa; /* Fondo general del sidebar */
+  --sidebar-text: #333333; /* Texto principal */
+  --sidebar-text-secondary: #6c757d; /* Texto secundario */
+  --sidebar-border: #dee2e6; /* Borde lateral derecho */
+  --sidebar-card-bg: #ffffff; /* Fondo de tarjetas */
+  --sidebar-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* Sombra base de tarjetas */
+  --sidebar-card-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15); /* Sombra en hover */
+  --sidebar-scrollbar-track: rgba(0, 0, 0, 0.1); /* Riel del scroll */
+  --sidebar-scrollbar-thumb: rgba(0, 0, 0, 0.2); /* Scroll bar */
+  --sidebar-scrollbar-thumb-hover: rgba(0, 0, 0, 0.3); /* Hover del scrollbar */
+  --sidebar-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradiente para tarjetas destacadas */
+  --sidebar-gradient-secondary: linear-gradient(45deg, #667eea, #764ba2); /* Gradiente para detalles y bordes */
+  --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para el título/marca */
+  --sidebar-transition: all 0.3s ease; /* Transición suave general */
+  --sidebar-user-avatar-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Fondo para el avatar */
 }
 
-/* Variables específicas para modo oscuro usando la clase .dark */
+/* ============================================
+   VARIABLES PARA MODO OSCURO (.dark)
+   ============================================ */
 .sidebar.dark {
   --sidebar-bg: #1a1a1a;
   --sidebar-text: #ffffff;
@@ -31,13 +38,16 @@
   --sidebar-scrollbar-track: rgba(255, 255, 255, 0.1);
   --sidebar-scrollbar-thumb: rgba(255, 255, 255, 0.2);
   --sidebar-scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
-  --sidebar-gradient-primary: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-  --sidebar-gradient-secondary: linear-gradient(45deg, #4299e1, #3182ce);
+  --sidebar-gradient-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --sidebar-gradient-secondary: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  --sidebar-gradient-accent: linear-gradient(45deg, #4299e1, #3182ce);
   --sidebar-brand-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   --sidebar-user-avatar-bg: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
 }
 
-/* Sidebar principal */
+/* ============================================
+   ESTILO GENERAL DEL SIDEBAR
+   ============================================ */
 .sidebar {
   padding: 2rem 1.5rem;
   height: 100vh;
@@ -45,9 +55,10 @@
   background: var(--sidebar-bg) !important;
   transition: var(--sidebar-transition);
   border-right: 1px solid var(--sidebar-border);
+  position: relative;
 }
 
-/* Scrollbar styling */
+/* Scrollbar personalizado para navegadores Webkit */
 .sidebar::-webkit-scrollbar {
   width: 6px;
 }
@@ -67,7 +78,9 @@
   background: var(--sidebar-scrollbar-thumb-hover);
 }
 
-/* Brand section */
+/* ============================================
+   SECCIÓN DE MARCA / LOGOTIPO
+   ============================================ */
 .sidebar-brand {
   text-align: center;
   margin-bottom: 2rem;
@@ -92,7 +105,9 @@
   transition: var(--sidebar-transition);
 }
 
-/* Cards base - IMPORTANTE: Forzar estilos con !important para sobrescribir Bootstrap */
+/* ============================================
+   TARJETAS BASE DEL SIDEBAR
+   ============================================ */
 .sidebar .welcome-card,
 .sidebar .login-card,
 .sidebar .info-card,
@@ -104,6 +119,7 @@
   margin-bottom: 1.5rem !important;
   overflow: hidden !important;
   background: var(--sidebar-card-bg) !important;
+  position: relative;
 }
 
 .sidebar .welcome-card:hover,
@@ -114,7 +130,9 @@
   box-shadow: var(--sidebar-card-shadow-hover) !important;
 }
 
-/* Welcome card - con gradiente especial */
+/* ============================================
+   WELCOME CARD - ESTILO DESTACADO
+   ============================================ */
 .sidebar .welcome-card {
   background: var(--sidebar-gradient-primary) !important;
   color: white !important;
@@ -140,7 +158,9 @@
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
-/* Avatar de usuario grande */
+/* ============================================
+   AVATAR DEL USUARIO
+   ============================================ */
 .sidebar .user-avatar-large {
   width: 60px !important;
   height: 60px !important;
@@ -152,7 +172,7 @@
   color: white !important;
   font-weight: 700 !important;
   font-size: 1.5rem !important;
-  margin: 0 auto !important;
+  margin: 0 auto 1rem auto !important;
   border: 3px solid rgba(255, 255, 255, 0.3) !important;
   transition: var(--sidebar-transition) !important;
 }
@@ -163,7 +183,9 @@
   align-items: center !important;
 }
 
-/* Login card - adapta al tema */
+/* ============================================
+   LOGIN CARD - ADAPTABLE AL TEMA
+   ============================================ */
 .sidebar .login-card {
   background: var(--sidebar-card-bg) !important;
   border: 1px solid var(--sidebar-border) !important;
@@ -188,7 +210,9 @@
   color: var(--sidebar-text-secondary) !important;
 }
 
-/* Info card */
+/* ============================================
+   INFO CARD
+   ============================================ */
 .sidebar .info-card {
   background: var(--sidebar-card-bg) !important;
   border: 1px solid var(--sidebar-border) !important;
@@ -213,7 +237,7 @@
   left: 0 !important;
   width: 40px !important;
   height: 4px !important;
-  background: var(--sidebar-gradient-secondary) !important;
+  background: var(--sidebar-gradient-accent) !important;
   border-radius: 2px !important;
 }
 
@@ -224,7 +248,9 @@
   font-size: 1rem !important;
 }
 
-/* Features card */
+/* ============================================
+   FEATURES CARD
+   ============================================ */
 .sidebar .features-card {
   background: var(--sidebar-card-bg) !important;
   border: 1px solid var(--sidebar-border) !important;
@@ -246,16 +272,21 @@
   align-items: center !important;
   margin-bottom: 0.8rem !important;
   font-size: 0.95rem !important;
+  transition: var(--sidebar-transition) !important;
 }
 
 .sidebar .feature-item:last-child {
   margin-bottom: 0 !important;
 }
 
+.sidebar .feature-item:hover {
+  transform: translateX(3px) !important;
+}
+
 .sidebar .feature-icon {
   width: 8px !important;
   height: 8px !important;
-  background: var(--sidebar-gradient-secondary) !important;
+  background: var(--sidebar-gradient-accent) !important;
   border-radius: 50% !important;
   margin-right: 0.8rem !important;
   flex-shrink: 0 !important;
@@ -266,7 +297,9 @@
   line-height: 1.4 !important;
 }
 
-/* Stats grid para la actividad del usuario */
+/* ============================================
+   SECCIÓN DE ESTADÍSTICAS
+   ============================================ */
 .sidebar .stats-grid {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
@@ -286,10 +319,20 @@
   background: rgba(66, 153, 225, 0.1) !important;
 }
 
+.sidebar .stat-item:hover {
+  background: rgba(102, 126, 234, 0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+.sidebar.dark .stat-item:hover {
+  background: rgba(66, 153, 225, 0.15) !important;
+}
+
 .sidebar .stat-number {
   font-size: 1.5rem !important;
   font-weight: 700 !important;
   color: var(--sidebar-text) !important;
+  display: block !important;
 }
 
 .sidebar .stat-label {
@@ -298,7 +341,9 @@
   margin-top: 0.25rem !important;
 }
 
-/* Botones */
+/* ============================================
+   BOTONES MODERNOS
+   ============================================ */
 .sidebar .btn-modern,
 .sidebar .btn-login {
   border-radius: 50px !important;
@@ -310,6 +355,8 @@
   font-size: 0.9rem !important;
   width: 100% !important;
   border: none !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
 /* Botón moderno para welcome card */
@@ -330,7 +377,7 @@
 
 /* Botones de login - adaptativos al tema */
 .sidebar .btn-login.btn-primary {
-  background: var(--sidebar-gradient-secondary) !important;
+  background: var(--sidebar-gradient-accent) !important;
   border: none !important;
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
 }
@@ -354,7 +401,7 @@
   position: absolute !important;
   inset: 0 !important;
   padding: 2px !important;
-  background: var(--sidebar-gradient-secondary) !important;
+  background: var(--sidebar-gradient-accent) !important;
   border-radius: inherit !important;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
   mask-composite: exclude !important;
@@ -362,13 +409,15 @@
 }
 
 .sidebar .btn-login.btn-outline-primary:hover {
-  background: var(--sidebar-gradient-secondary) !important;
+  background: var(--sidebar-gradient-accent) !important;
   transform: translateY(-3px) !important;
   color: white !important;
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
 }
 
-/* Animaciones de entrada */
+/* ============================================
+   ANIMACIONES Y EFECTOS
+   ============================================ */
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -380,6 +429,25 @@
   }
 }
 
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.7; 
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animaciones de entrada escalonadas */
 .sidebar .welcome-card,
 .sidebar .login-card,
 .sidebar .info-card,
@@ -392,49 +460,9 @@
 .sidebar .info-card { animation-delay: 0.2s !important; }
 .sidebar .features-card { animation-delay: 0.3s !important; }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .sidebar {
-    padding: 1.5rem 1rem !important;
-  }
-  
-  .sidebar .welcome-card .card-body,
-  .sidebar .login-card .card-body {
-    padding: 2rem 1.5rem !important;
-  }
-  
-  .sidebar .info-card .card-body,
-  .sidebar .features-card .card-body {
-    padding: 1.5rem !important;
-  }
-  
-  .sidebar .sidebar-brand h3 {
-    font-size: 1.6rem !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .sidebar {
-    padding: 1rem 0.75rem !important;
-  }
-  
-  .sidebar .welcome-card .card-body,
-  .sidebar .login-card .card-body {
-    padding: 1.5rem 1rem !important;
-  }
-  
-  .sidebar .sidebar-brand h3 {
-    font-size: 1.4rem !important;
-  }
-  
-  .sidebar .btn-modern,
-  .sidebar .btn-login {
-    padding: 0.8rem 1.5rem !important;
-    font-size: 0.8rem !important;
-  }
-}
-
-/* Efectos especiales para modo oscuro */
+/* ============================================
+   EFECTOS ESPECIALES PARA MODO OSCURO
+   ============================================ */
 .sidebar.dark .welcome-card {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
               0 0 20px rgba(74, 85, 104, 0.3) !important;
@@ -458,10 +486,12 @@
   border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Mejoras de accesibilidad */
+/* ============================================
+   ACCESIBILIDAD Y ESTADOS
+   ============================================ */
 .sidebar .btn-modern:focus,
 .sidebar .btn-login:focus {
-  outline: 2px solid var(--sidebar-gradient-secondary) !important;
+  outline: 2px solid var(--sidebar-gradient-accent) !important;
   outline-offset: 2px !important;
 }
 
@@ -480,7 +510,120 @@
   animation: pulse 1.5s ease-in-out infinite !important;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  .sidebar .welcome-card .card-body,
+  .sidebar .login-card .card-body {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  .sidebar .info-card .card-body,
+  .sidebar .features-card .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .sidebar .sidebar-brand h3 {
+    font-size: 1.6rem !important;
+  }
+  
+  .sidebar .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .sidebar {
+    padding: 1rem 0.75rem !important;
+  }
+  
+  .sidebar .welcome-card .card-body,
+  .sidebar .login-card .card-body {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  .sidebar .sidebar-brand h3 {
+    font-size: 1.4rem !important;
+  }
+  
+  .sidebar .btn-modern,
+  .sidebar .btn-login {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .sidebar .user-avatar-large {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.2rem !important;
+  }
+}
+
+/* ============================================
+   MEJORAS ADICIONALES
+   ============================================ */
+
+/* Efecto de brillo sutil en las tarjetas */
+.sidebar .welcome-card::before,
+.sidebar .login-card::before,
+.sidebar .info-card::before,
+.sidebar .features-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.sidebar .welcome-card:hover::before,
+.sidebar .login-card:hover::before,
+.sidebar .info-card:hover::before,
+.sidebar .features-card:hover::before {
+  left: 100%;
+}
+
+/* Indicador de scroll */
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    transparent, 
+    var(--sidebar-gradient-accent), 
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar:hover::after {
+  opacity: 0.3;
+}
+
+/* Mejorar el contraste en modo oscuro */
+.sidebar.dark .feature-item:hover .feature-text {
+  color: var(--sidebar-text) !important;
+}
+
+/* Efecto de focus mejorado */
+.sidebar .feature-item:focus-visible {
+  outline: 2px solid var(--sidebar-gradient-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth scrolling */
+.sidebar {
+  scroll-behavior: smooth;
 }

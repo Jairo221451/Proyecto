@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
+import { 
+  FiHome, FiBriefcase, FiUser, FiSettings, 
+  FiLogOut, FiPlusCircle, FiShield, FiStar,
+  FiMapPin, FiHeart, FiShoppingBag, FiCalendar
+} from 'react-icons/fi';
+import logo from '../assets/Localink.png'; // Asegúrate de que la ruta sea correcta
 import './Sidebar.css';
 
 const Sidebar = ({ darkMode, closeSidebar, isMobile }) => {

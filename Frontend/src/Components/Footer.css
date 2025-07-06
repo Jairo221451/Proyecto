@@ -1,6 +1,8 @@
-/* Footer.css - Con soporte para modo oscuro */
+/* ========================================
+   VARIABLES CSS PARA TEMAS CLARO Y OSCURO
+   ======================================== */
 
-/* Variables CSS para tema claro */
+/* -------- Tema claro -------- */
 :root {
   --footer-bg: #ffffff;
   --footer-bg-secondary: #f8f9fa;
@@ -16,9 +18,9 @@
   --shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Variables CSS para tema oscuro */
+/* -------- Tema oscuro -------- */
 .modern-footer.dark {
-  --footer-bg: #1a1a1a ;
+  --footer-bg: #1a1a1a;
   --footer-bg-secondary: #2d333d;
   --footer-text: #a0aec0;
   --footer-text-dark: #e2e8f0;
@@ -31,7 +33,11 @@
   --shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.25);
 }
 
-/* Footer principal */
+/* =====================
+   ESTILOS DEL FOOTER
+   ===================== */
+
+/* -------- Footer general -------- */
 .modern-footer {
   background-color: var(--footer-bg);
   color: var(--footer-text);
@@ -41,22 +47,27 @@
   transition: var(--transition);
 }
 
+/* 🔧 REDUCIDO: Padding principal del footer */
 .footer-main {
-  padding: 4rem 0 3rem;
+  padding: 2.5rem 0 1.5rem; /* Reducido de 4rem 0 3rem */
   background-color: var(--footer-bg);
   position: relative;
 }
 
-/* Sección de marca */
+/* ============================
+   SECCIÓN DE MARCA Y LOGOTIPO
+   ============================ */
+
+/* 🔧 REDUCIDO: Margen inferior de la marca */
 .footer-brand {
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem; /* Reducido de 2rem */
 }
 
 .brand-title {
   color: var(--footer-accent);
-  font-size: 2rem;
+  font-size: 1.75rem; /* Reducido de 2rem */
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem; /* Reducido de 1rem */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.025em;
   transition: var(--transition);
@@ -64,30 +75,40 @@
 
 .brand-description {
   color: var(--footer-text);
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  font-size: 1rem;
+  line-height: 1.5; /* Reducido de 1.7 */
+  margin-bottom: 1.25rem; /* Reducido de 2rem */
+  font-size: 0.9rem; /* Reducido de 1rem */
   max-width: 280px;
 }
 
-/* Redes sociales */
+/* 🔧 LOGO: Tamaño optimizado */
+.footer-logo {
+  max-width: 100px; /* Reducir tamaño del logo */
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+/* =============================
+   REDES SOCIALES EN EL FOOTER
+   ============================= */
+
 .social-links {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem; /* Reducido de 1rem */
 }
 
 .social-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 38px; /* Reducido de 44px */
+  height: 38px; /* Reducido de 44px */
   background-color: var(--footer-bg-secondary);
   color: var(--footer-text);
-  border-radius: 12px;
+  border-radius: 10px; /* Reducido de 12px */
   text-decoration: none;
   transition: var(--transition);
-  font-size: 1.2rem;
+  font-size: 1.1rem; /* Reducido de 1.2rem */
   border: 1px solid var(--footer-border);
 }
 
@@ -103,36 +124,52 @@
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
 }
 
-/* Secciones del footer */
+/* =============================
+   SECCIONES INFORMATIVAS DEL FOOTER
+   ============================= */
+
+/* 🔧 REDUCIDO: Margen inferior de secciones */
 .footer-section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem; /* Reducido de 2rem */
 }
 
 .footer-title {
   color: var(--footer-text-dark);
-  font-size: 1.125rem;
+  font-size: 1rem; /* Reducido de 1.125rem */
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem; /* Reducido de 1.5rem */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Enlaces del footer */
+.footer-icon {
+  font-size: 0.9rem;
+}
+
+/* -------- Lista de enlaces -------- */
+
 .footer-links {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* 🔧 REDUCIDO: Espaciado entre elementos de lista */
 .footer-links li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem; /* Reducido de 0.75rem */
 }
 
 .footer-links a {
   color: var(--footer-text);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.875rem; /* Reducido de 1rem */
   transition: var(--transition);
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  line-height: 1.3;
   position: relative;
 }
 
@@ -156,32 +193,38 @@
   width: 100%;
 }
 
-/* Newsletter */
+.link-icon {
+  font-size: 0.8rem;
+}
+
+/* =======================
+   FORMULARIO NEWSLETTER
+   ======================= */
+
 .newsletter-text {
   color: var(--footer-text);
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+  font-size: 0.9rem; /* Reducido de 1rem */
+  margin-bottom: 1rem; /* Reducido de 1.5rem */
+  line-height: 1.5; /* Reducido de 1.6 */
 }
 
 .newsletter-form {
-  margin-top: 1rem;
+  margin-top: 0.75rem; /* Reducido de 1rem */
 }
 
 .newsletter-input {
   background-color: var(--footer-input-bg) !important;
   border: 1px solid var(--footer-border) !important;
   color: var(--footer-input-text) !important;
-  border-radius: 12px 0 0 12px;
-  padding: 0.875rem 1rem;
-  font-size: 1rem;
+  border-radius: 10px 0 0 10px; /* Reducido de 12px */
+  padding: 0.75rem 1rem; /* Reducido de 0.875rem */
+  font-size: 0.9rem; /* Reducido de 1rem */
   transition: var(--transition);
 }
 
 .newsletter-input:focus {
   background-color: var(--footer-input-bg) !important;
   border-color: var(--footer-accent) !important;
-  color: var(--footer-input-text) !important;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
 }
 
@@ -192,10 +235,10 @@
 .newsletter-btn {
   background-color: var(--footer-accent) !important;
   border: 1px solid var(--footer-accent) !important;
-  border-radius: 0 12px 12px 0;
-  padding: 0.875rem 1.25rem;
+  border-radius: 0 10px 10px 0; /* Reducido de 12px */
+  padding: 0.75rem 1rem; /* Reducido de 0.875rem 1.25rem */
   transition: var(--transition);
-  box-shadow: none;
+  font-size: 0.9rem;
 }
 
 .newsletter-btn:hover {
@@ -213,17 +256,21 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
-/* Footer inferior */
+/* =====================
+   SECCIÓN INFERIOR
+   ===================== */
+
+/* 🔧 REDUCIDO: Padding de sección inferior */
 .footer-bottom {
   background-color: var(--footer-bg-secondary);
-  padding: 2rem 0;
+  padding: 1.25rem 0; /* Reducido de 2rem */
   border-top: 1px solid var(--footer-border);
 }
 
 .copyright-text {
   color: var(--footer-text);
+  font-size: 0.875rem; /* Reducido de 0.95rem */
   margin: 0;
-  font-size: 0.95rem;
 }
 
 .footer-bottom-links {
@@ -231,15 +278,15 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem; /* Reducido de 0.5rem */
 }
 
 .footer-bottom-links a {
   color: var(--footer-text);
+  font-size: 0.875rem; /* Reducido de 0.95rem */
   text-decoration: none;
-  font-size: 0.95rem;
   transition: var(--transition);
-  padding: 0.25rem 0.5rem;
+  padding: 0.2rem 0.4rem; /* Reducido de 0.25rem 0.5rem */
   border-radius: 6px;
 }
 
@@ -254,49 +301,49 @@
 
 .separator {
   color: var(--footer-text);
-  margin: 0 0.5rem;
+  margin: 0 0.4rem; /* Reducido de 0.5rem */
   font-weight: 300;
   opacity: 0.6;
 }
 
-/* Responsive */
+/* =============================
+   DISEÑO RESPONSIVO (RESPONSIVE)
+   ============================= */
+
 @media (max-width: 768px) {
+  /* 🔧 REDUCIDO: Padding responsive */
   .footer-main {
-    padding: 3rem 0 2rem;
+    padding: 2rem 0 1.25rem; /* Reducido de 3rem 0 2rem */
   }
-  
+
   .footer-section {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem; /* Reducido de 2rem */
   }
-  
+
   .social-links {
     justify-content: flex-start;
-    margin-top: 1rem;
+    margin-top: 0.75rem; /* Reducido de 1rem */
   }
-  
+
   .footer-bottom-links {
-    text-align: center;
     justify-content: center;
-    margin-top: 1rem;
     flex-wrap: wrap;
+    margin-top: 0.75rem; /* Reducido de 1rem */
   }
-  
+
   .copyright-text {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem; /* Reducido de 1rem */
   }
-  
+
   .newsletter-form .input-group {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem; /* Reducido de 0.75rem */
   }
-  
-  .newsletter-input {
-    border-radius: 12px;
-  }
-  
+
+  .newsletter-input,
   .newsletter-btn {
-    border-radius: 12px;
+    border-radius: 10px; /* Reducido de 12px */
     width: 100%;
   }
 
@@ -307,25 +354,34 @@
 
 @media (max-width: 576px) {
   .brand-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem; /* Reducido de 1.75rem */
   }
-  
+
+  /* 🔧 REDUCIDO: Padding móvil */
   .footer-main {
-    padding: 2.5rem 0 1.5rem;
+    padding: 1.5rem 0 1rem; /* Reducido de 2.5rem 0 1.5rem */
   }
-  
+
   .social-links {
-    gap: 0.75rem;
+    gap: 0.5rem; /* Reducido de 0.75rem */
   }
-  
+
   .social-link {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
+    width: 35px; /* Reducido de 40px */
+    height: 35px; /* Reducido de 40px */
+    font-size: 1rem; /* Reducido de 1.1rem */
+  }
+
+  .footer-bottom {
+    padding: 1rem 0; /* Reducido */
   }
 }
 
-/* Animaciones mejoradas */
+/* =============================
+   ANIMACIONES Y EFECTOS VISUALES
+   ============================= */
+
+/* Animación al cargar las secciones */
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -347,26 +403,29 @@
 .footer-section:nth-child(4) { animation-delay: 0.3s; }
 .footer-section:nth-child(5) { animation-delay: 0.4s; }
 
-/* Efectos de hover mejorados */
+/* Hover interactivo en marca */
 .footer-brand:hover .brand-title {
   transform: scale(1.02);
   transition: transform 0.3s ease;
 }
 
+/* Efecto de clic en botón/redes */
 .social-link:active {
   transform: translateY(0) scale(0.95);
 }
 
-/* Mejoras visuales para modo oscuro */
+/* ========================
+   MODO OSCURO - MEJORAS VISUALES
+   ======================== */
+
 .modern-footer.dark {
   background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
 }
 
 .modern-footer.dark .footer-bottom {
-  background: linear-gradient(135deg, #181818  0%, #181818  100%);
+  background: linear-gradient(135deg, #181818 0%, #181818 100%);
 }
 
-/* Efectos de resplandor para modo oscuro */
 .modern-footer.dark .brand-title {
   text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
 }
