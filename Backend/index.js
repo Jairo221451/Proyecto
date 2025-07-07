@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
-// Configuración CORS mejorada
+// Configuración CORS mejorada - AGREGADO EL MÉTODO PATCH
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -14,7 +14,7 @@ app.use(cors({
     'https://res.cloudinary.com' // Agregar dominio de Cloudinary
   ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // ← AGREGADO PATCH
   allowedHeaders: [
     'Content-Type', 
     'Authorization',
@@ -29,9 +29,9 @@ app.use(cors({
 
 // Headers mejorados para recursos externos
 app.use((req, res, next) => {
-  // Headers CORS básicos
+  // Headers CORS básicos - AGREGADO PATCH
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); // ← AGREGADO PATCH
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   
   // Headers para recursos externos (imágenes de Cloudinary)
