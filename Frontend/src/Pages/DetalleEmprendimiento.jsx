@@ -73,7 +73,11 @@ const DetalleEmprendimiento = () => {
       const res = await api.get(`/comentarios/${id}`);
       setComentarios(res.data);
     } catch (err) {
-      setMensaje(err.response?.data?.error || 'Error al enviar comentario');
+       if (err.response?.data?.error === 'Token no proporcionado') {
+      setMensaje('Inicia sesión para enviar comentario/valoración');
+      } else {
+        setMensaje(err.response?.data?.error || 'Error al enviar comentario');
+      }
     }
   };
 
