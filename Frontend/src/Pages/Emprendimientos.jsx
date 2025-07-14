@@ -212,9 +212,13 @@ const Emprendimientos = () => {
               <Card className="card-custom h-100">
                 <Card.Img
                   variant="top"
-                  src={`http://localhost:3001${emprendimiento.imagen_url}`}
+                  src={emprendimiento.imagen_url}
                   className="card-img-custom"
                   style={{ height: '200px', objectFit: 'cover' }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://via.placeholder.com/300x200?text=Imagen+no+disponible';
+                  }}
                 />
                 <Card.Body className="d-flex flex-column">
                   <Card.Title>{emprendimiento.nombre}</Card.Title>

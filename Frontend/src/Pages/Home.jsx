@@ -39,33 +39,37 @@ const Home = () => {
 
   // Componente reutilizable para renderizar las tarjetas
   const EmprendimientoCard = ({ emprendimiento }) => (
-    <Col key={emprendimiento.id_emprendimiento}>
-      <Card className="card-custom h-100">
-        {emprendimiento.imagen_url && (
-          <Card.Img
-            variant="top"
-            src={`http://localhost:3001${emprendimiento.imagen_url}`}
-            className="card-img-custom"
-          />
+  <Col key={emprendimiento.id_emprendimiento}>
+    <Card className="card-custom h-100">
+      {emprendimiento.imagen_url && (
+        <Card.Img
+          variant="top"
+          src={emprendimiento.imagen_url}
+          className="card-img-custom"
+          onError={(e) => {
+            e.target.onerror = null; // Evita bucles de error
+            e.target.src = 'https://via.placeholder.com/300x200?text=Imagen+no+disponible';
+          }}
+        />
+      )}
+      <Card.Body>
+        <Card.Title>{emprendimiento.nombre}</Card.Title>
+        <Card.Text>
+          {emprendimiento.descripcion?.substring(0, 100)}...
+        </Card.Text>
+        {emprendimiento.promedio_puntuacion && (
+          <p className="mb-2">⭐ {parseFloat(emprendimiento.promedio_puntuacion).toFixed(1)} / 5</p>
         )}
-        <Card.Body>
-          <Card.Title>{emprendimiento.nombre}</Card.Title>
-          <Card.Text>
-            {emprendimiento.descripcion?.substring(0, 100)}...
-          </Card.Text>
-          {emprendimiento.promedio_puntuacion && (
-            <p className="mb-2">⭐ {parseFloat(emprendimiento.promedio_puntuacion).toFixed(1)} / 5</p>
-          )}
-          <Button
-            variant="outline-primary"
-            size="sm"
-            onClick={() => navigate(`/emprendimiento/${emprendimiento.id_emprendimiento}`)}
-          >
-            Ver más
-          </Button>
-        </Card.Body>
-      </Card>
-    </Col>
+        <Button
+          variant="outline-primary"
+          size="sm"
+          onClick={() => navigate(`/emprendimiento/${emprendimiento.id_emprendimiento}`)}
+        >
+          Ver más
+        </Button>
+      </Card.Body>
+    </Card>
+  </Col>
   );
 
   if (loading) {
